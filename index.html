@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>笑话</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css" />
+		<script type="text/javascript" src="js/jquery-1.11.1.js" ></script>
+		<script src="https://cdn.bootcss.com/jquery-color/2.1.2/jquery.color.js"></script>
+	</head>
+	<body>
+		<div class="main theme">
+			<div class="containt">
+				<p id="joke"></p>
+				<div class="oper clearfix">
+					<button class="theme fa fa-weibo btn float-l "></button>
+					<button class="theme fa fa-refresh btn float-r"></button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	$(function(){
+		refresh();
+		$(".fa-refresh").click(function(){
+			refresh();
+		});
+		$(".fa-weibo").click(function(){
+			shareToWeibo();
+		});
+	});
+	
+var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
+//刷新
+function refresh() {
+	var key="67d713a34b5394d3ba1b23ffc95760e7";
+	$.ajax({
+        	url:"http://api.tianapi.com/txapi/joke/",
+        	data:{key:key},
+			type:"get",
+        	success: function (data) {
+        		
+        		$("#joke").animate({opacity:"0"},500,function(){
+        			$(this).animate({opacity:"1"},500);
+        			$(this).html(data.newslist[0].content);
+        		});
+        		
+        		
+        		var color = colors[getRamdonIndex(colors.length)];
+				$(".theme").animate({backgroundColor: color},1000);
+        	}
+    	});
+	}
+	
+	//获取[0,num-1]间的随机数
+	function getRamdonIndex(num){
+		return Math.floor(Math.random() * num);
+	}
+	
+	function shareToWeibo(){
+		window.sharetitle = $("#joke").text();
+(function(s, d, e) {
+	try {} catch(e) {}
+	var f = 'http://v.t.sina.com.cn/share/share.php?',
+		u = d.location.href,
+		p = ['url=', e(u), '&title=', e(window.sharetitle)].join('');
+
+	function a() {
+		if(!window.open([f, p].join(''), 'mb', ['toolbar=0,status=0,resizable=1,width=620,height=450,left=', (s.width - 620) / 2, ',top=', (s.height - 450) / 2].join(''))) u.href = [f, p].join('');
+	};
+	if(/Firefox/.test(navigator.userAgent)) {
+		setTimeout(a, 0)
+	} else {
+		a()
+	}
+})(screen, document, encodeURIComponent);
+}</script>

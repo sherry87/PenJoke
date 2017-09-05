@@ -1,0 +1,35 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box
+}
+ul,li{list-style: none;}
+html,body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-family:"微软雅黑";
+}
+
+.clearfix:after {
+	content: "\200B";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+input,textarea{outline: none;}
+
+.main{width:100%;height: 100%;padding-top: 50px;}
+.containt{width:450px;margin:0 auto;border-radius: 5px;padding: 30px;box-sizing: border-box;background: #fff;}
+.containt p{line-height: 28px;}
+
+.oper{padding-top:20px}
+.oper .btn{border:0;width: 40px;height: 40px;color: #fff;font-size: 24px;cursor: pointer;}
+.float-l{float: left;}
+.float-r{float:right;}
+
+.theme{background:#16a085;}
